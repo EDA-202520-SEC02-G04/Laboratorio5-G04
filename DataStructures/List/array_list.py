@@ -107,3 +107,10 @@ def selection_sort(my_list):
                 temp = j
         my_list = exchange(my_list, i, temp)
     return my_list
+
+def insertion_sort(my_list):
+    for i in range(my_list["size"]):
+        j = i - 1
+        while j >= 0 and my_list["elements"][i] < j:
+            my_list = exchange(my_list, j, j + 1)
+    return my_list
