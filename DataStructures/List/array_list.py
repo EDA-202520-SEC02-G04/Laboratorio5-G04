@@ -94,7 +94,7 @@ def sub_list(my_list, pos_i, num_elements):
     my_list['elements'] = my_list['elements'][pos_i:num_elements + pos_i]
     return my_list
 
- def shell_sort(sort_criteria, my_list):
+ def shell_sort(default_sort_criteria, my_list):
         inc = l.size(my_list) // 2
         while inc > 0:
             for i, elem in enumerate(l.sub_list(my_list, inc, l.size(my_list)-inc), inc):
