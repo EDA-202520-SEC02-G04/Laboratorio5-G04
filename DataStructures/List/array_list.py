@@ -94,6 +94,12 @@ def sub_list(my_list, pos_i, num_elements):
     my_list['elements'] = my_list['elements'][pos_i:num_elements + pos_i]
     return my_list
 
+def default_sort_criteria(element_1,element_2):
+    is_sorted = False
+    if element_1 < element_2:
+        is_sorted = True
+    return is_sorted
+
 def selection_sort(my_list):
     for i in range(my_list["size"]):
         temp1 = my_list["elements"][i]
@@ -104,6 +110,3 @@ def selection_sort(my_list):
         my_list["elements"][temp2] = my_list["elements"][i]
         my_list["elements"][i] = temp1
     return my_list
-
-def 
-        
