@@ -102,11 +102,8 @@ def default_sort_criteria(element_1,element_2):
 
 def selection_sort(my_list):
     for i in range(my_list["size"]):
-        temp1 = my_list["elements"][i]
         for j in range(i, my_list["size"]):
-            if my_list["elements"][j ] < my_list["elements"][i]:
-                temp1 = my_list["elements"][j ]
-                temp2 = j
-        my_list["elements"][temp2] = my_list["elements"][i]
-        my_list["elements"][i] = temp1
+            if my_list["elements"][j] < my_list["elements"][i]:
+                temp = j
+        my_list = exchange(my_list, i, temp)
     return my_list
