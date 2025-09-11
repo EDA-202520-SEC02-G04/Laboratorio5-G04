@@ -115,13 +115,13 @@ def insertion_sort(my_list):
             my_list = exchange(my_list, j, j + 1)
     return my_list
 
- def shell_sort(default_sort_criteria, my_list):
-        inc = l.size(my_list) // 2
-        while inc > 0:
-            for i, elem in enumerate(l.sub_list(my_list, inc, l.size(my_list)-inc), inc):
-                j = i
-                while j >= inc and sort_criteria(elem, l.get_element(my_list, j-inc)):
-                    l.change_info(list, j, l.get_element(my_list, j-inc))
-                    j -= inc
-            inc = 1 if inc == 2 else inc * 5 // 11
-        return my_list
+def shell_sort(default_sort_criteria, my_list):
+    inc = l.size(my_list) // 2
+    while inc > 0:
+        for i, elem in enumerate(l.sub_list(my_list, inc, l.size(my_list)-inc), inc):
+            j = i
+            while j >= inc and sort_criteria(elem, l.get_element(my_list, j-inc)):
+                l.change_info(list, j, l.get_element(my_list, j-inc))
+                j -= inc
+        inc = 1 if inc == 2 else inc * 5 // 11
+    return my_list
