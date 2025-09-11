@@ -104,3 +104,9 @@ def sub_list(my_list, pos_i, num_elements):
                     j -= inc
             inc = 1 if inc == 2 else inc * 5 // 11
         return my_list
+def default_sort_criteria(element_1,element_2):
+    is_sorted = False
+    if element_1 < element_2:
+        is_sorted = True
+    return is_sorted
+

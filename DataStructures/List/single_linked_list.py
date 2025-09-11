@@ -174,7 +174,11 @@ def insert_element(my_list,element,pos):
     return nueva_lista
     
         
-    
+def default_sort_criteria(element_1,element_2):
+    is_sorted = False
+    if element_1 < element_2:
+        is_sorted = True
+    return is_sorted
     
         
     
