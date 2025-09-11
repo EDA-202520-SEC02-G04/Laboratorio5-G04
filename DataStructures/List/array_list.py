@@ -83,10 +83,9 @@ def change_info(my_list, pos, element):
     return my_list
 
 def exchange(my_list, pos1, pos2):
-    newlist = my_list
-    change_info(newlist, pos1, my_list['elements'][pos2])
-    change_info(newlist, pos2, my_list['elements'][pos1])
-    my_list['elements'] = newlist
+    temp = my_list["elements"][pos1] 
+    my_list["elements"][pos1] = my_list["elements"][pos2] 
+    my_list["elements"][pos2] = temp 
     return my_list
 
 def sub_list(my_list, pos_i, num_elements):
