@@ -122,23 +122,22 @@ def change_info(my_list,pos,new_info):
     actual["info"] = new_info
     return actual
         
-def exchange(my_list,pos_1,pos_2):
-    if pos_1 and pos_2< 0 or pos_1 and pos_2 >= my_list["size"]:
+def exchange(my_list, pos_1, pos_2):
+    if pos_1 < 0 or pos_2 < 0 or pos_1 >= my_list["size"] or pos_2 >= my_list["size"]:
         return None
-    actual_pos_1 = my_list["first"]
-    actual_pos_2 = my_list["first"]
-    index_1 = 0
-    index_2 = 0
-    while index_1 < pos_1:
-        actual_pos_1 = actual_pos_1["next"]
-        index_1 += 1
-    while index_2 < pos_2:
-        actual_pos_2 = actual_pos_2["next"]
-        index_2 += 1
-    nuevo_pos_1 = actual_pos_1
-    actual_pos_1["info"] = actual_pos_2["info"]
-    actual_pos_2["info"] = nuevo_pos_1["info"]
-    return actual_pos_2
+
+    node1 = my_list["first"]
+    node2 = my_list["first"]
+
+    for _ in range(pos_1):
+        node1 = node1["next"]
+    for _ in range(pos_2):
+        node2 = node2["next"]
+
+    # Intercambiar los valores de info
+    node1["info"], node2["info"] = node2["info"], node1["info"]
+
+    return my_list
     
     
 def sub_list(my_list,pos,num_elements):
@@ -179,6 +178,53 @@ def default_sort_criteria(element_1,element_2):
     if element_1 < element_2:
         is_sorted = True
     return is_sorted
+
+def selection_sort(my_list, default_sort_criteria):
+    if size(my_list) <= 1:
+        return my_list
+    primero = my_list["first"]
+    posicion_1 = 0
+    while primero is not None:
+        valor_minimo = primero["info"]
+        posicion_minima = posicion_1
+        segundo = primero["next"]
+        posicion_2 = posicion_1 + 1
+        while segundo is not None:
+            if not default_sort_criteria(valor_minimo,segundo["info"]):
+                posicion_minima = posicion_2
+                valor_minimo = segundo["info"]
+            segundo = segundo["next"]
+            posicion_2 += 1
+        if posicion_minima != posicion_1:
+            exchange(my_list,posicion_1,posicion_minima)
+        primero = primero["next"]
+        posicion_1 += 1
+    return my_list
+
+def insertion_sort(my_list, default_sort_criteria):
+    for i in range(my_list["size"]):
+        j = i - 1
+        while j >= 0 and  default_sort_criteria(get_element(my_list,i), get_element(my_list,j)):
+            my_list = exchange(my_list, j, j + 1)
+    return my_list
+        
+            
+def shell_sort(my_list, default_sort_criteria):
+    n = size(my_list)
+    gap = n // 2
+
+    while gap > 0:
+        for i in range(gap, n):
+            temp = get_element(my_list, i)
+            j = i
+            while j >= gap and not default_sort_criteria(get_element(my_list, j - gap), temp):
+                change_info(my_list, j, get_element(my_list, j - gap))
+                j -= gap
+            change_info(my_list, j, temp)
+        gap //= 2
+
+    return my_list
+        
     
         
     

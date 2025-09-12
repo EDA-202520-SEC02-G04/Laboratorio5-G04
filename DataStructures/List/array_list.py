@@ -103,8 +103,7 @@ def selection_sort(my_list, default_sort_criteria):
     for i in range(my_list["size"]):
         for j in range(i, my_list["size"]):
             if default_sort_criteria(my_list["elements"][j], my_list["elements"][i]):
-                temp = j
-        my_list = exchange(my_list, i, temp)
+                my_list = exchange(my_list, i, j)
     return my_list
 
 def insertion_sort(my_list, default_sort_criteria):
@@ -115,12 +114,17 @@ def insertion_sort(my_list, default_sort_criteria):
     return my_list
 
 def shell_sort(my_list, default_sort_criteria):
-    inc = size(my_list) // 2
-    while inc > 0:
-        for i, elem in enumerate(sub_list(my_list, inc, size(my_list)-inc), inc):
+    n = size(my_list)
+    gap = n // 2
+
+    while gap > 0:
+        for i in range(gap, n):
+            temp = get_element(my_list, i)
             j = i
-            while j >= inc and default_sort_criteria(elem, get_element(my_list, j-inc)):
-                my_list = exchange(list, j, get_element(my_list, j-inc))
-                j -= inc
-        inc = 1 if inc == 2 else inc * 5 // 11
+            while j >= gap and not default_sort_criteria(get_element(my_list, j - gap), temp):
+                change_info(my_list, j, get_element(my_list, j - gap))
+                j -= gap
+            change_info(my_list, j, temp)
+        gap //= 2
+
     return my_list
