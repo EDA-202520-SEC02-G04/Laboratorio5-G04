@@ -161,3 +161,4 @@ def merge(left, right):
     result["elements"].extend(right["elements"][j:])
     result["size"] = left["size"] + right["size"]
     return result
+
