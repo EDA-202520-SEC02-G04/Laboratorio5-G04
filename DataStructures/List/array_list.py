@@ -129,7 +129,7 @@ def shell_sort(my_list, default_sort_criteria):
 
     return my_list
 
-def particion_quick_sort(my_list, lo, hi):
+def particion_quick_sort(my_list, default_sort_criteria, lo, hi):
     pivote=first_element(my_list)
     i=lo+1
     for j in range(lo, hi):
@@ -139,7 +139,9 @@ def particion_quick_sort(my_list, lo, hi):
     exchange(my_list, i+1, hi)
     return i+1
     
-def quick_sort(my_list, default_sort_criteria, lo, hi):
+def quick_sort(my_list, default_sort_criteria):
+    lo=0
+    hi=size(my_list)
     if lo< hi:
         x=particion_quick_sort(my_list, default_sort_criteria, lo, hi)
         quick_sort(my_list, 0, x-1)
