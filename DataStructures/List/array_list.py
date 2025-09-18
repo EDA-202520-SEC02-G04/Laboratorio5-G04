@@ -160,17 +160,17 @@ def merge_sort(my_list, default_sort_criteria):
     right["elements"] = my_list["elements"][mid:]
     right["size"] = my_list["size"] - mid
 
-    sortedLeft = merge_sort(left)
-    sortedRight = merge_sort(right)
+    sortedLeft = merge_sort(left, default_sort_criteria)
+    sortedRight = merge_sort(right, default_sort_criteria)
 
-    return merge(sortedLeft, sortedRight)
+    return merge(sortedLeft, sortedRight, default_sort_criteria)
 
-def merge(left, right):
+def merge(left, right, default_sort_criteria):
     result = new_list()
     i = j = 0
     k = 0
     while i < left["size"] and j < right["size"]:
-        if left["elements"][i] < right["elements"][j]:
+        if default_sort_criteria(left["elements"][i],right["elements"][j]):
             result = add_last(result, left["elements"][i])
             i += 1
         else:
