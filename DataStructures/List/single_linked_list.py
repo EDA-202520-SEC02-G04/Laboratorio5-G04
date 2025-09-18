@@ -134,24 +134,28 @@ def exchange(my_list, pos_1, pos_2):
     for _ in range(pos_2):
         node2 = node2["next"]
 
-    # Intercambiar los valores de info
+    
     node1["info"], node2["info"] = node2["info"], node1["info"]
 
     return my_list
     
     
-def sub_list(my_list,pos,num_elements):
-    if pos < 0 or pos >= my_list["size"]:
+def sub_list(my_list, pos, num_elements):
+    
+    if pos < 0 or pos >= my_list["size"] or num_elements <= 0:
         return None
+   
     actual = my_list["first"]
-    index = 0
-    nueva_lista = new_list()
-    add_last(nueva_lista,actual["info"])
-    while index < pos:
+    i = 0
+    while i < pos:
         actual = actual["next"]
-        add_last(nueva_lista,actual["info"])
-        index += 1
-        nueva_lista["size"] = num_elements
+        i += 1
+    nueva_lista = new_list()
+    count = 0
+    while actual is not None and count < num_elements:
+        add_last(nueva_lista, actual["info"])
+        actual = actual["next"]
+        count += 1
     return nueva_lista
         
 
@@ -224,7 +228,42 @@ def shell_sort(my_list, default_sort_criteria):
         gap //= 2
 
     return my_list
+
+def merge_sort(my_list, default_sort_criteria):
+    if 1 >= size(my_list):
+        return my_list
         
+    mitad = size(my_list)//2
+    izquierda = sub_list(my_list,1,mitad)
+    derecha = sub_list(my_list, mitad + 1, size(my_list) - mitad)
+    izquierda_ordenada = merge_sort(izquierda,default_sort_criteria)
+    derecha_ordenada = merge_sort(derecha, default_sort_criteria)
+    return merge(izquierda_ordenada,derecha_ordenada,default_sort_criteria)
+
+def merge(izq,der,default_sort_criteria):
+    resultado = new_list()
+    i = 0
+    j = 0
+
+    while i < size(izq) and j < size(der):
+        if default_sort_criteria(get_element(izq, i), get_element(der, j)):
+            add_last(resultado, get_element(izq, i))
+            i += 1
+        else:
+            add_last(resultado, get_element(der, j))
+            j += 1
+
+    while i < size(izq):
+        add_last(resultado, get_element(der, i))
+        i += 1
+
+    while j < size(der):
+        add_last(resultado, get_element(der, j))
+        j += 1
+
+    return resultado
+    
+    
     
         
     
