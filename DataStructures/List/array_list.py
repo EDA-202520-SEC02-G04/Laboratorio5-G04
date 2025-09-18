@@ -131,7 +131,7 @@ def shell_sort(my_list, default_sort_criteria):
 
 def merge_sort(my_list):
     if len(my_list) <= 1:
-        return arr
+        return my_list
     left = new_list()
     right = new_list()
     mid = my_list["size"] // 2
