@@ -142,8 +142,8 @@ def particion_quick_sort(my_list, sort_critera, lo, hi):
 def quick_sort(my_list, default_sort_criteria, lo, hi):
     if lo< hi:
         x=particion_quick_sort(my_list, default_sort_criteria, lo, hi)
-        quick_sort(my_list, default_sort_criteria, lo, x-1)
-        quick_sort(my_list, default_sort_criteria, x+1, hi)
+        quick_sort(my_list, default_sort_criteria, 0, x-1)
+        quick_sort(my_list, default_sort_criteria, x+1, size(my_list))
     return my_list
 
 def merge(my_list, left, right):
