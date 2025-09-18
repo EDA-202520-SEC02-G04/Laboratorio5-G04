@@ -147,48 +147,36 @@ def quick_sort(my_list, default_sort_criteria):
         quick_sort(my_list, 0, x-1)
         quick_sort(my_list, x+1, size(my_list))
     return my_list
+def merge_sort(my_list):
+    if len(my_list) <= 1:
+        return my_list
+    left = new_list()
+    right = new_list()
+    mid = my_list["size"] // 2
+    left["elements"] = my_list["elements"][:mid]
+    left["size"] = mid
+    right["elements"] = my_list["elements"][mid:]
+    right["size"] = my_list["size"] - mid
 
-def merge(my_list, left, right):
-    mid = (left + right) // 2
-    
-    n1 = mid - left + 1
-    n2 = right - mid
-    L = new_list()
-    R = new_list
-    
-    for i in range(n1):
-        L = add_last(L, my_list["elements"][left + i])
-    for j in range(n2):
-        R = add_last(R, my_list["elements"][mid + 1 + j])
-        
-    i = 0
-    j = 0
-    k = left
-    
-    while i < n1 and j < n2:
-        if L[i] <= R[j]:
-            my_list["elements"][k] = L["elements"][i]
+    sortedLeft = merge_sort(left)
+    sortedRight = merge_sort(right)
+
+    return merge(sortedLeft, sortedRight)
+
+def merge(left, right):
+    result = new_list()
+    i = j = 0
+
+    while i < left["size"] and j < right["size"]:
+        if left["elements"][i] < right["elements"][j]:
+            result = add_last(result, left["elements"][i])
             i += 1
         else:
-            my_list["elements"][k] = L["elements"][j]
+            result = add_last(result, right["elements"][j])
             j += 1
-        k += 1
 
+    result["elements"].extend(left["elements"][i:])
+    result["elements"].extend(right["elements"][j:])
+    result["size"] = left["size"] + right["size"]
+    return result
 
-    while i < n1:
-        my_list["elements"][k] = L["elements"][i]
-        i += 1
-        k += 1
-
-    while j < n2:
-        my_list["elements"][k] = L["elements"][j]
-        j += 1
-        k += 1
-
-def merge_sort(my_list, left, right):
-    if left < right:
-        
-        mid = (right - left)//2
-        merge_sort(my_list, left, mid)
-        merge_sort(my_list, mid + 1, right)
-        merge(my_list, left, right)
