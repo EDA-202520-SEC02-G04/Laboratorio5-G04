@@ -149,7 +149,7 @@ def quick_sort(my_list, default_sort_criteria):
         quick_sort(my_list, x+1, size(my_list))
     return my_list
 
-def merge_sort(my_list):
+def merge_sort(my_list, default_sort_criteria):
     if len(my_list) <= 1:
         return my_list
     left = new_list()
