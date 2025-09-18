@@ -168,7 +168,7 @@ def merge_sort(my_list, default_sort_criteria):
 def merge(left, right):
     result = new_list()
     i = j = 0
-
+    k = 0
     while i < left["size"] and j < right["size"]:
         if left["elements"][i] < right["elements"][j]:
             result = add_last(result, left["elements"][i])
@@ -176,9 +176,17 @@ def merge(left, right):
         else:
             result = add_last(result, right["elements"][j])
             j += 1
+        k += 1
+        
+    while i < left["size"]:
+        result["elements"][k] = left["elements"][i]
+        i += 1
+        k += 1
 
-    result["elements"].extend(left["elements"][i:])
-    result["elements"].extend(right["elements"][j:])
+    while j < right["size"]:
+        result["elements"][k] = right["elements"][j]
+        j += 1
+        k += 1
     result["size"] = left["size"] + right["size"]
     return result
 
