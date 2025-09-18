@@ -129,10 +129,9 @@ def shell_sort(my_list, default_sort_criteria):
 
     return my_list
 
-
 def particion_quick_sort(my_list, default_sort_criteria, lo, hi):
     pivote=first_element(my_list)
-    i=lo+1
+    i=lo-1
     for j in range(lo, hi):
         if get_element(my_list, j)< pivote:
             i+=1
@@ -149,7 +148,7 @@ def quick_sort(my_list, default_sort_criteria):
         quick_sort(my_list, x+1, size(my_list))
     return my_list
 
-def merge_sort(my_list, default_sort_criteria):
+def merge_sort(my_list):
     if len(my_list) <= 1:
         return my_list
     left = new_list()
@@ -160,33 +159,26 @@ def merge_sort(my_list, default_sort_criteria):
     right["elements"] = my_list["elements"][mid:]
     right["size"] = my_list["size"] - mid
 
-    sortedLeft = merge_sort(left, default_sort_criteria)
-    sortedRight = merge_sort(right, default_sort_criteria)
+    sortedLeft = merge_sort(left)
+    sortedRight = merge_sort(right)
 
-    return merge(sortedLeft, sortedRight, default_sort_criteria)
+    return merge(sortedLeft, sortedRight)
 
-def merge(left, right, default_sort_criteria):
+def merge(left, right):
     result = new_list()
     i = j = 0
-    k = 0
+
     while i < left["size"] and j < right["size"]:
-        if default_sort_criteria(left["elements"][i],right["elements"][j]):
+        if left["elements"][i] < right["elements"][j]:
             result = add_last(result, left["elements"][i])
             i += 1
         else:
             result = add_last(result, right["elements"][j])
             j += 1
-        k += 1
-        
-    while i < left["size"]:
-        result["elements"][k] = left["elements"][i]
-        i += 1
-        k += 1
 
-    while j < right["size"]:
-        result["elements"][k] = right["elements"][j]
-        j += 1
-        k += 1
+    result["elements"].extend(left["elements"][i:])
+    result["elements"].extend(right["elements"][j:])
     result["size"] = left["size"] + right["size"]
     return result
+
 
