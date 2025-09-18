@@ -146,3 +146,47 @@ def quick_sort(my_list, default_sort_criteria, lo, hi):
         quick_sort(my_list, default_sort_criteria, x+1, hi)
     return my_list
 
+def merge(my_list, left, right):
+    mid = (left + right) // 2
+    
+    n1 = mid - left + 1
+    n2 = right - mid
+    L = new_list()
+    R = new_list
+    
+    for i in range(n1):
+        L = add_last(L, my_list["elements"][left + i])
+    for j in range(n2):
+        R = add_last(R, my_list["elements"][mid + 1 + j])
+        
+    i = 0
+    j = 0
+    k = left
+    
+    while i < n1 and j < n2:
+        if L[i] <= R[j]:
+            my_list["elements"][k] = L["elements"][i]
+            i += 1
+        else:
+            my_list["elements"][k] = L["elements"][j]
+            j += 1
+        k += 1
+
+
+    while i < n1:
+        my_list["elements"][k] = L["elements"][i]
+        i += 1
+        k += 1
+
+    while j < n2:
+        my_list["elements"][k] = L["elements"][j]
+        j += 1
+        k += 1
+
+def merge_sort(my_list, left, right):
+    if left < right:
+        
+        mid = (right - left)//2
+        merge_sort(my_list, left, mid)
+        merge_sort(my_list, mid + 1, right)
+        merge(my_list, left, right)
