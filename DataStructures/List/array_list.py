@@ -129,7 +129,7 @@ def shell_sort(my_list, default_sort_criteria):
 
     return my_list
 
-def particion_quick_sort(my_list, sort_critera, lo, hi):
+def particion_quick_sort(my_list, lo, hi):
     pivote=first_element(my_list)
     i=lo+1
     for j in range(lo, hi):
@@ -142,8 +142,8 @@ def particion_quick_sort(my_list, sort_critera, lo, hi):
 def quick_sort(my_list, default_sort_criteria, lo, hi):
     if lo< hi:
         x=particion_quick_sort(my_list, default_sort_criteria, lo, hi)
-        quick_sort(my_list, default_sort_criteria, 0, x-1)
-        quick_sort(my_list, default_sort_criteria, x+1, size(my_list))
+        quick_sort(my_list, 0, x-1)
+        quick_sort(my_list, x+1, size(my_list))
     return my_list
 
 def merge(my_list, left, right):
