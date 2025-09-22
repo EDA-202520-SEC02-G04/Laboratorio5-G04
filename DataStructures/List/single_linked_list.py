@@ -141,21 +141,26 @@ def exchange(my_list, pos_1, pos_2):
     
     
 def sub_list(my_list, pos, num_elements):
-    
-    if pos < 0 or pos >= my_list["size"] or num_elements <= 0:
+    if pos < 0 or pos >= my_list["size"]:
         return None
-   
+    
+    
+    if num_elements <= 0:
+        return new_list()
+
     actual = my_list["first"]
     i = 0
     while i < pos:
         actual = actual["next"]
         i += 1
+
     nueva_lista = new_list()
     count = 0
     while actual is not None and count < num_elements:
         add_last(nueva_lista, actual["info"])
         actual = actual["next"]
         count += 1
+
     return nueva_lista
         
 
