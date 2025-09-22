@@ -1,5 +1,5 @@
 def new_list():
-    newlist = {'elements': [], 'size': 0,}
+    newlist = {'elements': [], 'size': 0}
     return newlist
 
 def get_element(my_list, index):
@@ -89,13 +89,23 @@ def exchange(my_list, pos1, pos2):
     return my_list
 
 def sub_list(my_list, pos_i, num_elements):
-    my_list['size'] -= pos_i
-    my_list['elements'] = my_list['elements'][pos_i:num_elements + pos_i]
-    return my_list
+    if pos_i < 0 or pos_i >= my_list["size"] or num_elements <= 0:
+        return None
+    
+    lista_nueva = new_list()
+    fin = min(pos_i + num_elements, my_list["size"])  
+    
+    contador = pos_i
+    while contador < fin:
+        add_last(lista_nueva, my_list["elements"][contador])
+        contador += 1
+    
+    return lista_nueva
+
 
 def default_sort_criteria(element_1,element_2):
     is_sorted = False
-    if element_1 < element_2:
+    if element_1 <= element_2:
         is_sorted = True
     return is_sorted
 
@@ -129,56 +139,62 @@ def shell_sort(my_list, default_sort_criteria):
 
     return my_list
 
-def particion_quick_sort(my_list, default_sort_criteria, lo, hi):
-    pivote=first_element(my_list)
-    i=lo-1
-    for j in range(lo, hi):
-        if get_element(my_list, j)< pivote:
-            i+=1
-            exchange(my_list, j, i)
-    exchange(my_list, i+1, hi)
-    return i+1
-    
-def quick_sort(my_list, default_sort_criteria):
-    lo=0
-    hi=size(my_list)
-    if lo< hi:
-        x=particion_quick_sort(my_list, default_sort_criteria, lo, hi)
-        quick_sort(my_list, 0, x-1)
-        quick_sort(my_list, x+1, size(my_list))
-    return my_list
 
-def merge_sort(my_list):
-    if len(my_list) <= 1:
+
+def merge_sort(my_list,default_sort_criteria):
+    if 1 >= size(my_list):
         return my_list
-    left = new_list()
-    right = new_list()
-    mid = my_list["size"] // 2
-    left["elements"] = my_list["elements"][:mid]
-    left["size"] = mid
-    right["elements"] = my_list["elements"][mid:]
-    right["size"] = my_list["size"] - mid
+    mitad = size(my_list) // 2
+    izquierda = sub_list(my_list,0,mitad)
+    derecha = sub_list(my_list,mitad,size(my_list)-mitad)
+    izquierda_ordenada = merge_sort(izquierda,default_sort_criteria)
+    derecha_ordenada = merge_sort(derecha,default_sort_criteria)
+    return merge(izquierda_ordenada,derecha_ordenada,default_sort_criteria)
 
-    sortedLeft = merge_sort(left)
-    sortedRight = merge_sort(right)
-
-    return merge(sortedLeft, sortedRight)
-
-def merge(left, right):
-    result = new_list()
-    i = j = 0
-
-    while i < left["size"] and j < right["size"]:
-        if left["elements"][i] < right["elements"][j]:
-            result = add_last(result, left["elements"][i])
+def merge(izq,der,default_sort_criteria):
+    respuesta = new_list()
+    i = 0
+    j = 0
+    while i < size(izq) and j < size(der):
+        if default_sort_criteria(get_element(izq,i), get_element(der,j)):
+            add_last(respuesta,get_element(izq,i))
             i += 1
         else:
-            result = add_last(result, right["elements"][j])
+            add_last(respuesta,get_element(der,j))
             j += 1
+    while i < size(izq):
+        add_last(respuesta,get_element(izq,i))
+        i += 1
+    while j < size(der):
+        add_last(respuesta,get_element(der,j))
+        j += 1
+    return respuesta
 
-    result["elements"].extend(left["elements"][i:])
-    result["elements"].extend(right["elements"][j:])
-    result["size"] = left["size"] + right["size"]
-    return result
+def quick_sort(my_list,default_sort_criteria):
+    if size(my_list) <= 1:
+        return my_list
+    pivote = get_element(my_list, size(my_list)//2)
+    izquierda = new_list()
+    mitad = new_list()
+    derecha = new_list()
+    for i in range(size(my_list)):
+        elemento = get_element(my_list,i)
+        if default_sort_criteria(elemento,pivote) and not default_sort_criteria(pivote, elemento):
+            add_last(izquierda,elemento)
+        elif default_sort_criteria(pivote,elemento) and not default_sort_criteria(elemento, pivote):
+            add_last(derecha,elemento)
+        else:
+            add_last(mitad,elemento)
+    izquierda_ordenada = quick_sort(izquierda,default_sort_criteria)
+    derecha_ordenada = quick_sort(derecha,default_sort_criteria)
+    return unir_lista(izquierda_ordenada,mitad,derecha_ordenada)
 
-
+def unir_lista(lista_1, lista_2, lista_3):
+    nueva_lista = new_list()
+    for i in range(size(lista_1)):
+        add_last(nueva_lista, get_element(lista_1, i))
+    for i in range(size(lista_2)):
+        add_last(nueva_lista, get_element(lista_2, i))
+    for i in range(size(lista_3)):
+        add_last(nueva_lista, get_element(lista_3, i))
+    return nueva_lista

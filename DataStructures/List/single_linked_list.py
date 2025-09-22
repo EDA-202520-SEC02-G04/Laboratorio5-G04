@@ -179,7 +179,7 @@ def insert_element(my_list,element,pos):
         
 def default_sort_criteria(element_1,element_2):
     is_sorted = False
-    if element_1 < element_2:
+    if element_1 <= element_2:
         is_sorted = True
     return is_sorted
 
@@ -263,7 +263,47 @@ def merge(izq,der,default_sort_criteria):
 
     return resultado
     
+def quick_sort(my_list,default_sort_criteria):
+    if size(my_list) <= 1:
+        return my_list
+    pivote = get_element(my_list, size(my_list) // 2 )
+    izquierda = new_list()
+    derecha = new_list()
+    mitad = new_list()
+    actual = my_list["first"]
+    while actual is not None:
+        elemento = actual["info"]
+        if default_sort_criteria(elemento,pivote) and not default_sort_criteria(pivote, elemento):
+            add_last(izquierda,elemento)
+        elif default_sort_criteria(pivote,elemento) and not default_sort_criteria(elemento, pivote):
+            add_last(derecha,elemento)
+        else:
+            add_last(mitad,elemento)
+        actual = actual["next"]
+    izquierda_ordenada = quick_sort(izquierda,default_sort_criteria)
+    derecha_ordenada = quick_sort(derecha,default_sort_criteria)
+    return unir_lista(izquierda_ordenada,mitad,derecha_ordenada)
+
+def unir_lista(lista_1, lista_2, lista_3):
+    nueva_lista = new_list()
+    actual_1 = lista_1["first"]
+    while actual_1 is not None:
+        elemento = actual_1["info"]
+        add_last(nueva_lista,elemento)
+        actual_1 = actual_1["next"]
     
+    actual_2 = lista_2["first"]
+    while actual_2 is not None:
+        elemento2 = actual_2["info"]
+        add_last(nueva_lista,elemento2)
+        actual_2 = actual_2["next"]
+    
+    actual_3 = lista_3["first"]
+    while actual_3 is not None:
+        elemento3 = actual_3["info"]
+        add_last(nueva_lista,elemento3)
+        actual_3 = actual_3["next"]
+    return nueva_lista
     
         
     
