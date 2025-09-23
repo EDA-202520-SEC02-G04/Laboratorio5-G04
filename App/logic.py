@@ -334,7 +334,7 @@ def compare_book_ids(id, book):
 
 def eval_ratings(book1, book2):
     # TODO: completar la función para comparar dos libros por su rating promedio, el libro 1 debe ser mayor al 2.
-    pass
+    return (float(book1['average_rating']) > float(book2['average_rating']))
 
 #  -----------------------------------------------
 # Funciones de ordenamiento
