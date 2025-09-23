@@ -333,8 +333,12 @@ def compare_book_ids(id, book):
 
 
 def eval_ratings(book1, book2):
-    # TODO: completar la función para comparar dos libros por su rating promedio, el libro 1 debe ser mayor al 2.
-    return (float(book1['average_rating']) > float(book2['average_rating']))
+    is_sorted=False 
+    rating1 = float(book1.get('average_rating', 0))
+    rating2 = float(book2.get('average_rating', 0))
+    if rating1>rating2:
+        is_sorted=True
+    return is_sorted
 
 #  -----------------------------------------------
 # Funciones de ordenamiento
@@ -346,22 +350,23 @@ def sort_books(catalog):
     sorted_books = catalog["book_sublist"]
     start_time = get_time()
 
-    # TODO: cambie el None para completar las opciones para selection_sort, insertion_sort, shell_sort, merge_sort y quick_sort 
+    if sort_algorithm == 1:  
+        sorted_books_s = data_structure.selection_sort(sorted_books, eval_ratings)
 
-    if sort_algorithm == 1:
-        sorted_books_s = None  
+    elif sort_algorithm == 2:  
+        sorted_books_s = data_structure.insertion_sort(sorted_books, eval_ratings)
 
-    elif sort_algorithm == 2:
-        sorted_books_s = None
+    elif sort_algorithm == 3:  
+        sorted_books_s = data_structure.shell_sort(sorted_books, eval_ratings)
 
-    elif sort_algorithm == 3:
-        sorted_books_s = None
-
-    elif sort_algorithm == 4:
-        sorted_books_s = None
+    elif sort_algorithm == 4:  
+        sorted_books_s = data_structure.merge_sort(sorted_books, eval_ratings)
 
     elif sort_algorithm == 5:
-        sorted_books_s = None
+        sorted_books_s = data_structure.quick_sort(sorted_books, eval_ratings)
+
+    else:
+        raise ValueError("Debe ingresar un algoritmo que esté configurado")
 
     end_time = get_time()
     delta = delta_time(start_time, end_time)
