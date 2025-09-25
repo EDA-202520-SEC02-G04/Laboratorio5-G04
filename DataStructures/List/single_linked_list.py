@@ -235,17 +235,26 @@ def shell_sort(my_list, default_sort_criteria):
     return my_list
 
 def merge_sort(my_list, default_sort_criteria):
-    if 1 >= size(my_list):
+    """
+    Ordena una lista enlazada simple usando Merge Sort.
+    Usa índices 0-based con la función sub_list.
+    """
+    if size(my_list) <= 1:
         return my_list
-        
-    mitad = size(my_list)//2
-    izquierda = sub_list(my_list,1,mitad)
-    derecha = sub_list(my_list, mitad + 1, size(my_list) - mitad)
-    izquierda_ordenada = merge_sort(izquierda,default_sort_criteria)
-    derecha_ordenada = merge_sort(derecha, default_sort_criteria)
-    return merge(izquierda_ordenada,derecha_ordenada,default_sort_criteria)
 
-def merge(izq,der,default_sort_criteria):
+    mitad = size(my_list) // 2
+    izquierda = sub_list(my_list, 0, mitad)
+    derecha = sub_list(my_list, mitad, size(my_list) - mitad)
+
+    izquierda_ordenada = merge_sort(izquierda, default_sort_criteria)
+    derecha_ordenada = merge_sort(derecha, default_sort_criteria)
+
+    return merge(izquierda_ordenada, derecha_ordenada, default_sort_criteria)
+
+def merge(izq, der, default_sort_criteria):
+    """
+    Funde dos listas ordenadas en una sola, manteniendo el orden.
+    """
     resultado = new_list()
     i = 0
     j = 0
@@ -259,11 +268,11 @@ def merge(izq,der,default_sort_criteria):
             j += 1
 
     while i < size(izq):
-        add_last(resultado, get_element(der, i))
+        add_last(resultado, get_element(izq, i)) 
         i += 1
 
     while j < size(der):
-        add_last(resultado, get_element(der, j))
+        add_last(resultado, get_element(der, j))  
         j += 1
 
     return resultado
