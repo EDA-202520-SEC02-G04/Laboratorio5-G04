@@ -59,6 +59,7 @@ def print_menu():
     print("2- Consultar la información de un libro")
     print("3- Consultar los libros de un autor")
     print("4- Libros por género")
+    print("5- Seleccione el tipo de ordenamiento")
     print("6- Seleccionar muestra de libros")
     print("7- Ordenar los libros por rating")
     print("8- Salir")
@@ -161,7 +162,10 @@ algo_str = """Seleccione el algoritmo de ordenamiento recursivo:
 1. Selection Sort
 2. insertion Sort
 3. shell Sort
+4. Merge Sort
+5. Quick Sort
 """
+
                  
 exit_opt_lt = ("s", "S", "1", True, "true", "True", "si", "Si", "SI")
 
